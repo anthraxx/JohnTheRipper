@@ -917,8 +917,8 @@ static void auto_tune_all(char *bitmap_params, unsigned int num_loaded_hashes, l
 
 	if ((!self_test_running && options.verbosity >= VERB_DEFAULT) ||
 	    ocl_always_show_ws)
-		fprintf(stderr, "LWS="Zu" GWS="Zu" ", local_work_size,
-		        global_work_size);
+		fprintf(stderr, "LWS="Zu" GWS="Zu"%s", local_work_size,
+		        global_work_size, benchmark_running ? " " : "\n");
 }
 
 /* Use only for smaller bitmaps < 16MB */

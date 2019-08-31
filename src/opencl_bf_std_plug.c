@@ -250,9 +250,10 @@ void BF_select_device(struct fmt_main *fmt) {
 	} else
 		find_best_gws(fmt);
 
-	if (options.verbosity >= VERB_DEFAULT || ocl_always_show_ws)
-		fprintf(stderr, "LWS="Zu" GWS="Zu" ", local_work_size,
-		        global_work_size);
+	if ((!self_test_running && options.verbosity >= VERB_DEFAULT) ||
+	    ocl_always_show_ws)
+		fprintf(stderr, "LWS="Zu" GWS="Zu"%s", local_work_size,
+		        global_work_size, benchmark_running ? " " : "\n");
 
 	fmt->params.min_keys_per_crypt = opencl_calc_min_kpc(local_work_size,
 	                                                     global_work_size, 1);

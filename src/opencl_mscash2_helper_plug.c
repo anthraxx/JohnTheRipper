@@ -430,9 +430,11 @@ static size_t autoTune(int jtrUniqDevId, long double kernelRunMs)
 		createDevObjGws(devParam[jtrUniqDevId].devGws, jtrUniqDevId);
 	}
 
-	if (options.verbosity >= VERB_DEFAULT || ocl_always_show_ws)
-		fprintf(stdout, "Dev#%d LWS="Zu" GWS="Zu" ", jtrUniqDevId,
-		        devParam[jtrUniqDevId].devLws, devParam[jtrUniqDevId].devGws);
+	if ((!self_test_running && options.verbosity >= VERB_DEFAULT) ||
+	    ocl_always_show_ws)
+		fprintf(stdout, "Dev#%d LWS="Zu" GWS="Zu"%s", jtrUniqDevId,
+		        devParam[jtrUniqDevId].devLws, devParam[jtrUniqDevId].devGws,
+		        benchmark_running ? " " : "\n");
 
 #undef calcMs
 	return devParam[jtrUniqDevId].devGws;
