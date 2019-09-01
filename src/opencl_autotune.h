@@ -249,8 +249,9 @@ static void autotune_run_extra(struct fmt_main *self, unsigned int rounds,
 		global_work_size = GET_EXACT_MULTIPLE(mpi_gws, local_work_size);
 
 		if (john_main_process && (ocl_always_show_ws || !mask_increments_len)) {
-			fprintf(stderr, "All nodes LWS="Zu" GWS="Zu" ",
-			        local_work_size, global_work_size);
+			fprintf(stderr, "All nodes LWS="Zu" GWS="Zu" ("Zu" blocks) ",
+			        local_work_size, global_work_size,
+			        global_work_size / local_work_size);
 			if (mask_int_cand.num_int_cand > 1)
 				fprintf(stderr, "x%d ", mask_int_cand.num_int_cand);
 			if (!(options.flags & FLG_TEST_CHK))
@@ -264,8 +265,9 @@ static void autotune_run_extra(struct fmt_main *self, unsigned int rounds,
 	      (autotune_real_db && !mask_increments_len)))) {
 		if (options.node_count)
 			fprintf(stderr, "%u: ", NODE);
-		fprintf(stderr, "LWS="Zu" GWS="Zu" ",
-		        local_work_size, global_work_size);
+		fprintf(stderr, "LWS="Zu" GWS="Zu" ("Zu" blocks) ",
+		        local_work_size, global_work_size,
+		        global_work_size / local_work_size);
 		if (mask_int_cand.num_int_cand > 1)
 			fprintf(stderr, "x%d ", mask_int_cand.num_int_cand);
 		if (!(options.flags & FLG_TEST_CHK))
